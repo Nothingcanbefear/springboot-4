@@ -113,13 +113,10 @@ public class MyTest {
         String s = uuid.toString();
 
         System.out.println(s.replace("-","").toUpperCase());
+    }
 
-        UUID uuid1 = UUID.randomUUID();
+    public  void testPull(){
+        System.out.println("这是测试，NOTICE！！！");
 
-        String[] split = uuid1.toString().split("-");
-
-        for(String str:split){
-            System.out.println(str);
-        }
     }
 }
