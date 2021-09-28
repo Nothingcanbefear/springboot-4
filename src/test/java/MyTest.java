@@ -113,6 +113,10 @@ public class MyTest {
         String s = uuid.toString();
 
         System.out.println(s.replace("-","").toUpperCase());
+    }
+
+    public  void testPull(){
+        System.out.println("这是测试，NOTICE！！！");
 
     }
 }
