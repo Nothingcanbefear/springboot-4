@@ -101,12 +101,18 @@ public class MyTest {
 
     @Test
     public void test5() {
-        String str = "";
-        boolean numeric = StringUtils.isNumeric(str);
-        Optional.ofNullable(str).filter((e) -> StringUtils.isNumeric(e)).orElseThrow(() -> new RuntimeException("不是数字"));
-        System.out.println(numeric);
+//        String str = "";
+//        boolean numeric = StringUtils.isNumeric(str);
+//        Optional.ofNullable(str).filter((e) -> StringUtils.isNumeric(e)).orElseThrow(() -> new RuntimeException("不是数字"));
+//        System.out.println(numeric);
+//
+//        UserServiceImpl userService = new UserServiceImpl();
+//
 
-        UserServiceImpl userService = new UserServiceImpl();
-        userService.queryUserInfoById(18);
+        UUID uuid = UUID.randomUUID();
+        String s = uuid.toString();
+
+        System.out.println(s.replace("-","").toUpperCase());
+
     }
 }
