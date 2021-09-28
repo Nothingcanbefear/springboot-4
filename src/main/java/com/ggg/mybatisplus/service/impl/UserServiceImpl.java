@@ -94,8 +94,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }
     }
 
-    //
-    @Async("asyncTaskExecutor")
+    @Async("resolveAsync")
     public void resolve() {
         synchronized (MybatisPlusApplication1.class) {
             for (int i = 0; i <= 10; i++) {
@@ -114,7 +113,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
         dto = Optional.ofNullable(dto).orElseThrow(() -> new RuntimeException("对象为空"));
         User user = userMapper.selectById(dto.getId());
-        user.setName(dto.getName()).setEmail(dto.getEmail()).setAge(dto.getAge()).setId(dto.getId());
+        user.setName(dto.getName()).setEmail(dto.getEmail())
+                .setAge(dto.getAge()).setId(dto.getId());
         wrapper.eq(User::getId, user.getId());
         ResultMap<Object> map = new ResultMap<>();
         int update=-1;
