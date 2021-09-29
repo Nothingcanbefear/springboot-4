@@ -1,10 +1,6 @@
 import com.ggg.mybatisplus.entity.Test1;
-import com.ggg.mybatisplus.entity.User;
-import com.ggg.mybatisplus.entity.UserInfo;
-import com.ggg.mybatisplus.service.impl.UserServiceImpl;
 import com.ggg.mybatisplus.util.JwtTool;
 import com.ggg.mybatisplus.util.JwtUtil;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.junit.jupiter.api.Test;
 

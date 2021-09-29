@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.HashMap;
@@ -154,4 +155,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         return null;
     }
 
+
+    @Transactional(rollbackFor = Exception.class)
+    public void mulInsert(){
+        for (int i = 0; i < 100000; i++) {
+            User user = new User();
+            String str=Integer.toString(i);
+            user.setId(Long.valueOf(13+i)).setEmail("ggg"+str+"@ggg"+str+".com")
+                    .setName(str).setAge((i+18)%60).setVersion(1);
+
+            userMapper.insert(user);
+        }
+    }
+
+    public List<User> selectUserByName(String name){
+        return userMapper.selectList(new QueryWrapper<User>().lambda().eq(User::getName, name));
+    }
 }
