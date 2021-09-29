@@ -8,6 +8,7 @@ import com.ggg.mybatisplus.entity.User;
 import com.ggg.mybatisplus.exception.MyException;
 import com.ggg.mybatisplus.myenum.InfoEnum;
 import com.ggg.mybatisplus.service.impl.UserServiceImpl;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -72,8 +73,8 @@ public class UserController {
 
     @PostMapping("/test1")
     public String test1(@RequestParam(value = "id",required = true) String name1){
-//        Optional.ofNullable(name1).filter((e)->StringUtils.isNotBlank(e)).
-//                orElseThrow(()->new RuntimeException("failed"));
+        Optional.ofNullable(name1).filter((e)-> StringUtils.isNotBlank(e)).
+                orElseThrow(()->new RuntimeException("failed"));
         System.out.println(name1);
         return name1;
     }
