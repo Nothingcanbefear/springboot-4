@@ -17,9 +17,12 @@ public class ResultMap<T> {
 
     private PageInfo pageInfo;
 
+    private T data;
+
     private String aop;
 
+
     public ResultMap(Integer code,String message){
-        this(code,message,null,null);
+        this(code,message,null,null,null);
     }
 }
