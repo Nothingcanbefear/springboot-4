@@ -6,6 +6,7 @@ import com.ggg.mybatisplus.common.ResultMap;
 import com.ggg.mybatisplus.dto.UserDto;
 import com.ggg.mybatisplus.entity.User;
 import com.ggg.mybatisplus.exception.MyException;
+import com.ggg.mybatisplus.myenum.InfoEnum;
 import com.ggg.mybatisplus.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -75,6 +76,23 @@ public class UserController {
 //                orElseThrow(()->new RuntimeException("failed"));
         System.out.println(name1);
         return name1;
+    }
+
+    @GetMapping("/minsert")
+    public String mulInsert(){
+        userService.mulInsert();
+        return "SUCCESS";
+    }
+
+    @GetMapping("/name")
+    public ResultMap<List<User>> selectUserByName(@RequestHeader String name){
+        List<User> users = userService.selectUserByName(name);
+
+        ResultMap<List<User>> userResultMap = new ResultMap<>();
+        userResultMap.setCode(InfoEnum.INSERT_SUCCESS.getCode()).setMessage(InfoEnum.INSERT_SUCCESS.getMessage())
+                .setData(users);
+
+        return userResultMap;
     }
 }
 
