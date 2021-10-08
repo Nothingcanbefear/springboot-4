@@ -19,7 +19,7 @@ public class ResultMap<T> {
 
     private T data;
 
-    private String aop;
+    private Object aop;
 
 
     public ResultMap(Integer code,String message){

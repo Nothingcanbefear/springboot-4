@@ -6,8 +6,10 @@ import com.ggg.mybatisplus.MybatisPlusApplication1;
 import com.ggg.mybatisplus.common.ResultMap;
 import com.ggg.mybatisplus.dto.UserDto;
 import com.ggg.mybatisplus.dto.UserInfoVo;
+import com.ggg.mybatisplus.entity.TokenLog;
 import com.ggg.mybatisplus.entity.User;
 import com.ggg.mybatisplus.entity.UserInfo;
+import com.ggg.mybatisplus.mapper.TokenLogMapper;
 import com.ggg.mybatisplus.mapper.UserInfoMapper;
 import com.ggg.mybatisplus.mapper.UserMapper;
 import com.ggg.mybatisplus.myenum.InfoEnum;
@@ -15,16 +17,19 @@ import com.ggg.mybatisplus.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * <p>
@@ -43,6 +48,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Autowired
     private UserInfoMapper userInfoMapper;
+
+    @Autowired
+    private TokenLogMapper tokenLogMapper;
 
     public List<User> getAllUser() {
         return userMapper.selectList(null);
@@ -170,5 +178,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     public List<User> selectUserByName(String name){
         return userMapper.selectList(new QueryWrapper<User>().lambda().eq(User::getName, name));
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public String login(String name,String email){
+        User user = userMapper.selectOne(new QueryWrapper<User>().lambda()
+                .eq(User::getName, name).eq(User::getEmail, email));
+
+        if(ObjectUtils.isEmpty(user)){
+            return "false";
+        }else {
+            String replace = UUID.randomUUID().toString().replace("-", "");
+
+            int insert = tokenLogMapper.insert(new TokenLog().setToken(replace).setName(name).setEmail(email));
+            return "true"+replace+Integer.toString(insert);
+        }
     }
 }
