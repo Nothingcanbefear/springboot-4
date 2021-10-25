@@ -13,4 +13,5 @@ public class MyException extends RuntimeException{
     private String message;
 
     private Integer code;
+
 }

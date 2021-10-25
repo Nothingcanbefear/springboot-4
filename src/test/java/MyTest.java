@@ -1,12 +1,17 @@
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.ggg.mybatisplus.entity.Test1;
+import com.ggg.mybatisplus.entity.User;
 import com.ggg.mybatisplus.util.JwtTool;
 import com.ggg.mybatisplus.util.JwtUtil;
+import jdk.internal.cmm.SystemResourcePressureImpl;
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MyTest {
@@ -111,8 +116,72 @@ public class MyTest {
         System.out.println(s.replace("-","").toUpperCase());
     }
 
+    @Test
     public  void testPull(){
-        System.out.println("这是测试，NOTICE！！！");
 
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime max = LocalDateTime.MAX;
+
+        System.out.println(LocalDateTime.now().plusHours(2));
+        System.out.println("这是测试，NOTICE！！！"+max);
+        System.out.println(new Date(Long.MAX_VALUE));
+        LocalDateTime of = LocalDateTime.of(9999, 12, 30, 12, 59, 59);
+        System.out.println(of);
+        System.out.println(LocalDateTime.MAX.plusYears(Integer.MIN_VALUE));
+    }
+
+    @Test
+    public void test9(){
+        ArrayList<User> users = new ArrayList<>();
+        users.add(new User().setId(1L));
+        users.add(new User().setId(2L));
+        users.add(new User().setId(3L));
+        users.add(new User().setId(1L).setAge(2));
+        int i=0;
+        for(User user:users){
+
+            if(user.getId()==1L){
+                //users.remove(0);
+                i++;
+               continue;
+            }
+        }
+        System.out.println(i);
+        ArrayList<Object> objects = new ArrayList<>();
+        System.out.println(CollectionUtils.isEmpty(users));
+        users.forEach(System.out::println);
+    }
+
+    @Test
+    public void test10(){
+        List<String> list1=new ArrayList<>();
+        list1.add("a");
+        list1.add("b");
+        list1.add("c");
+        list1.add("d");
+        list1.add("g");
+
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add("a");
+        arrayList.add("b");
+        arrayList.add("c");
+        arrayList.add("d");
+        arrayList.add("e");
+
+        for(String str:arrayList){
+            list1.removeIf(value->value.equals(str));
+        }
+        list1.forEach(System.out::println);
+
+//        for (int i = 0; i < 100000; i++) {
+//            list1.add("gg");
+//        }
+//        long start = System.currentTimeMillis();
+//        List<String> collect = list1.stream().distinct().collect(Collectors.toList());
+//        long end = System.currentTimeMillis();
+//        collect.forEach(System.out::println);
+//        System.out.println("时间为"+(end-start));
+//         list1 = ListUtils.removeAll(list1, arrayList);
+//        list1.forEach(System.out::println);
     }
 }

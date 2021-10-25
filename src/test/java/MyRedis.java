@@ -1,5 +1,6 @@
 import redis.clients.jedis.Jedis;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MyRedis {
@@ -16,5 +17,9 @@ public class MyRedis {
         System.out.println(js.dump("k3"));
 //        System.out.println(js.get("chain"));
 //        Math.random()
+
+        ArrayList<Object> list = new ArrayList<>();
+        list.add("ss");
+
     }
 }
