@@ -3,14 +3,13 @@ import com.ggg.mybatisplus.entity.Test1;
 import com.ggg.mybatisplus.entity.User;
 import com.ggg.mybatisplus.util.JwtTool;
 import com.ggg.mybatisplus.util.JwtUtil;
-import jdk.internal.cmm.SystemResourcePressureImpl;
-import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -172,7 +171,12 @@ public class MyTest {
             list1.removeIf(value->value.equals(str));
         }
         list1.forEach(System.out::println);
-
+        System.out.println("---------------------------");
+        TimeUnit days = TimeUnit.DAYS;
+        System.out.println(days.toDays(7L));
+        System.out.println("------------------------");
+        System.out.println(~(-1L << 32));
+        System.out.println(-1|2);//1000 0001 1111 1111 | 0000 0010  1111 1101->1000 0010
 //        for (int i = 0; i < 100000; i++) {
 //            list1.add("gg");
 //        }
